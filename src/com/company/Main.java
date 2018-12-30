@@ -21,7 +21,6 @@ public class Main {
                 String cordsGrey = scanner2.nextLine();
                 String[] cordsBlackTab = cordsBlack.split(" ");
                 String[] cordsGreyTab = cordsGrey.split(" ");
-                System.out.println(line(greyPoints(cordsGreyTab), blackPoints(cordsBlackTab)));
                 if (equation(line(greyPoints(cordsGreyTab), blackPoints(cordsBlackTab))) && greyField(greyPoints(cordsGreyTab)) > blackField(blackPoints(cordsBlackTab))) {
                     System.out.println(10 * blackField(blackPoints(cordsBlackTab)) + 6 * (greyField(greyPoints(cordsGreyTab)) - blackField(blackPoints(cordsBlackTab))));
                 } else {
@@ -39,7 +38,7 @@ public class Main {
         return (0 < n && n <= 100);
     }
 
-    public static ArrayList<Point> blackPoints(String[] cordsBlackTab) {
+    static ArrayList<Point> blackPoints(String[] cordsBlackTab) {
         ArrayList<Point> blackPoints = new ArrayList<>();
         for (int i = 0; i < cordsBlackTab.length - 1; i = i + 2) {
             Point blackPoint = new Point();
@@ -52,7 +51,7 @@ public class Main {
         return blackPoints;
     }
 
-    public static ArrayList<Point> greyPoints(String[] cordsGrayTab) {
+    static ArrayList<Point> greyPoints(String[] cordsGrayTab) {
         ArrayList<Point> greyPoints = new ArrayList<>();
         for (int i = 0; i < cordsGrayTab.length - 1; i = i + 2) {
             Point greyPoint = new Point();
@@ -66,9 +65,9 @@ public class Main {
     }
 
 
-    public static ArrayList<Point> line(ArrayList<Point> blackPoints, ArrayList<Point> greyPoints) {
-        int a = 0;
-        int b = 0;
+    static ArrayList<Point> line(ArrayList<Point> blackPoints, ArrayList<Point> greyPoints) {
+        int a;
+        int b;
         ArrayList<Point> Points = new ArrayList<>();
         Points.addAll(blackPoints);
         Points.addAll(greyPoints);
@@ -93,7 +92,7 @@ public class Main {
         return lineOfPoints;
     }
 
-    public static boolean equation(ArrayList<Point> lineOfPoints) {
+    static boolean equation(ArrayList<Point> lineOfPoints) {
         int x;
         int y;
         int minX;
@@ -127,7 +126,7 @@ public class Main {
     }
 
 
-    public static double blackField(ArrayList<Point> blackPoints) {
+    static double blackField(ArrayList<Point> blackPoints) {
         double blackField = 0;
         blackField = blackField + blackPoints.get(0).y * (blackPoints.get(1).x - blackPoints.get(blackPoints.size() - 1).x);
         for (int i = 1; i < blackPoints.size() - 1; i++) {
@@ -139,7 +138,7 @@ public class Main {
         return Math.abs(blackField);
     }
 
-    public static double greyField(ArrayList<Point> greyPoints) {
+    static double greyField(ArrayList<Point> greyPoints) {
         double greyField = 0;
         greyField = greyField + greyPoints.get(0).y * (greyPoints.get(1).x - greyPoints.get(greyPoints.size() - 1).x);
         for (int i = 1; i < greyPoints.size() - 1; i++) {
