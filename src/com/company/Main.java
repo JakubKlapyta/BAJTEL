@@ -21,7 +21,8 @@ public class Main {
                 String cordsGrey = scanner2.nextLine();
                 String[] cordsBlackTab = cordsBlack.split(" ");
                 String[] cordsGreyTab = cordsGrey.split(" ");
-                if (equation(line(blackPoints(cordsBlackTab)))) {
+                System.out.println(line(greyPoints(cordsGreyTab), blackPoints(cordsBlackTab)));
+                if (equation(line(greyPoints(cordsGreyTab), blackPoints(cordsBlackTab))) && greyField(greyPoints(cordsGreyTab)) > blackField(blackPoints(cordsBlackTab))) {
                     System.out.println(10 * blackField(blackPoints(cordsBlackTab)) + 6 * (greyField(greyPoints(cordsGreyTab)) - blackField(blackPoints(cordsBlackTab))));
                 } else {
                     System.out.println("wrong defined field");
@@ -51,22 +52,37 @@ public class Main {
         return blackPoints;
     }
 
+    public static ArrayList<Point> greyPoints(String[] cordsGrayTab) {
+        ArrayList<Point> greyPoints = new ArrayList<>();
+        for (int i = 0; i < cordsGrayTab.length - 1; i = i + 2) {
+            Point greyPoint = new Point();
+            greyPoint.x = Integer.parseInt(cordsGrayTab[i], 10);
+            greyPoint.y = Integer.parseInt(cordsGrayTab[i + 1], 10);
+            greyPoints.add(greyPoint);
 
-    public static ArrayList<Point> line(ArrayList<Point> blackPoints) {
+        }
+
+        return greyPoints;
+    }
+
+
+    public static ArrayList<Point> line(ArrayList<Point> blackPoints, ArrayList<Point> greyPoints) {
         int a = 0;
         int b = 0;
-
+        ArrayList<Point> Points = new ArrayList<>();
+        Points.addAll(blackPoints);
+        Points.addAll(greyPoints);
         ArrayList<Point> lineOfPoints = new ArrayList<>();
-        for (int i = 0; i < blackPoints.size() - 1; i++) {
+        for (int i = 0; i < Points.size() - 1; i++) {
             Point line;
             try {
-                a = (blackPoints.get(i).y - blackPoints.get(i + 1).y) / (blackPoints.get(i).x - blackPoints.get(i + 1).x);
+                a = (Points.get(i).y - Points.get(i + 1).y) / (Points.get(i).x - Points.get(i + 1).x);
 
             } catch (Exception e) {
                 a = 0;
             }
-            b = blackPoints.get(i).y - (a * blackPoints.get(i).x);
-            if ((blackPoints.get(i).y - blackPoints.get(i + 1).y) == 0) {
+            b = Points.get(i).y - (a * Points.get(i).x);
+            if ((Points.get(i).y - Points.get(i + 1).y) == 0) {
                 line = new Point(b, a);
             } else {
                 line = new Point(a, b);
@@ -119,23 +135,9 @@ public class Main {
         }
         blackField = blackField + blackPoints.get(blackPoints.size() - 1).y * (blackPoints.get(0).x - blackPoints.get(blackPoints.size() - 2).x);
         blackField = blackField / 2;
-        double field = Math.abs(blackField);
-        return field;
+
+        return Math.abs(blackField);
     }
-
-    public static ArrayList<Point> greyPoints(String[] cordsGrayTab) {
-        ArrayList<Point> greyPoints = new ArrayList<>();
-        for (int i = 0; i < cordsGrayTab.length - 1; i = i + 2) {
-            Point greyPoint = new Point();
-            greyPoint.x = Integer.parseInt(cordsGrayTab[i], 10);
-            greyPoint.y = Integer.parseInt(cordsGrayTab[i + 1], 10);
-            greyPoints.add(greyPoint);
-
-        }
-
-        return greyPoints;
-    }
-
 
     public static double greyField(ArrayList<Point> greyPoints) {
         double greyField = 0;
@@ -145,8 +147,8 @@ public class Main {
         }
         greyField = greyField + greyPoints.get(greyPoints.size() - 1).y * (greyPoints.get(0).x - greyPoints.get(greyPoints.size() - 2).x);
         greyField = greyField / 2;
-        double field = Math.abs(greyField);
-        return field;
+
+        return Math.abs(greyField);
     }
 
 
