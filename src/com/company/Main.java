@@ -3,6 +3,7 @@ package com.company;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -21,6 +22,7 @@ public class Main {
                 String cordsGrey = scanner2.nextLine();
                 String[] cordsBlackTab = cordsBlack.split(" ");
                 String[] cordsGreyTab = cordsGrey.split(" ");
+                System.out.println();
                 if (equation(line(greyPoints(cordsGreyTab), blackPoints(cordsBlackTab))) && greyField(greyPoints(cordsGreyTab)) > blackField(blackPoints(cordsBlackTab))) {
                     System.out.println(10 * blackField(blackPoints(cordsBlackTab)) + 6 * (greyField(greyPoints(cordsGreyTab)) - blackField(blackPoints(cordsBlackTab))));
                 } else {
@@ -69,6 +71,7 @@ public class Main {
         int a;
         int b;
         ArrayList<Point> Points = new ArrayList<>();
+
         Points.addAll(blackPoints);
         Points.addAll(greyPoints);
         ArrayList<Point> lineOfPoints = new ArrayList<>();
